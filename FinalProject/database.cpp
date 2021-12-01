@@ -24,11 +24,9 @@ void database::readready()
     auto obj= json.object();
     latitude = obj["Latitude"].toDouble();
     longitude = obj["Longitude"].toDouble();
-
-    constructor();
 }
 
-QString database::conversion(double &var)
+QString database::conversionLatitude(double &var)
 {
     int a = var;
     float aux = ((var - a) * 60);
@@ -61,7 +59,7 @@ QString database::conversion(double &var)
     return value;
 }
 
-QString database::conversion1(double &var)
+QString database::conversionLongitude(double &var)
 {
     int a = var;
     float aux = ((var - a) * 60);
@@ -94,7 +92,9 @@ QString database::conversion1(double &var)
 }
 
 
-void database::constructor()
+QString database::constructor()
 {
-    return ("https://www.google.com/maps/place" + conversion(latitude) + conversion1(longitude));
+    str = ("https://www.google.com/maps/place" + conversionLatitude(latitude) + conversionLongitude(longitude));
+    emit sent(str);
+    return str;
 }

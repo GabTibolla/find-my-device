@@ -17,11 +17,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void receiver(QString stra);
     database *db;
 
 private:
     Ui::MainWindow *ui;
-    QString frase;
+
+public slots:
+    void setValue();
 };
 #endif // MAINWINDOW_H

@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "database.h"
 #include <QString>
-#include <QObject>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    database *url = new database(this);
+    db = url->constructor(); // erro
+    connect(db, &database::sent, this, &MainWindow::setValue);
 }
 
 MainWindow::~MainWindow()
@@ -18,7 +20,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::receiver(QString stra)
+void MainWindow::setValue()
 {
-    frase = stra;
+    ui->webView->load(QUrl(db->str));
+    ui->lineEdit->setText(db->str);
 }

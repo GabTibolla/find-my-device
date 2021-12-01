@@ -13,20 +13,21 @@ class database : public QObject
 public:
     explicit database(QObject *parent = nullptr);
     ~database();
-    void constructor();
+    QString constructor();
+    QString str;
 
 private:
     QNetworkAccessManager *m_manager;
     QNetworkReply *loc;
-    QString conversion(double &var);
-    QString conversion1(double &var);
+    QString conversionLatitude(double &var);
+    QString conversionLongitude(double &var);
     double latitude, longitude;
 
 public slots:
     void readready();
 
 signals:
-    void send(QString tr);
+    void sent(QString value);
 };
 
 #endif // DATABASE_H
