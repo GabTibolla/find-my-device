@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QString>
+#include "database.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,13 +17,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QString construtor();
-    int i = 0;
-
-private slots:
-    void on_pushButton_clicked();
+    void receiver(QString stra);
+    database *db;
 
 private:
     Ui::MainWindow *ui;
+    QString frase;
 };
 #endif // MAINWINDOW_H

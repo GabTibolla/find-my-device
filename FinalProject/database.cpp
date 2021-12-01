@@ -18,12 +18,14 @@ database::~database()
     delete m_manager;
 }
 
-QString database::readready()
+void database::readready()
 {
     auto json = QJsonDocument::fromJson(loc->readAll());
     auto obj= json.object();
     latitude = obj["Latitude"].toDouble();
     longitude = obj["Longitude"].toDouble();
+
+    constructor();
 }
 
 QString database::conversion(double &var)
@@ -91,3 +93,8 @@ QString database::conversion1(double &var)
      return value;
 }
 
+
+void database::constructor()
+{
+    return ("https://www.google.com/maps/place" + conversion(latitude) + conversion1(longitude));
+}

@@ -5,7 +5,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QString>
-#include "mainwindow.h"
+#include <QMainWindow>
 
 class database : public QObject
 {
@@ -13,17 +13,20 @@ class database : public QObject
 public:
     explicit database(QObject *parent = nullptr);
     ~database();
-    double latitude = 0, longitude;
-    QString conversion(double &var);
-    QString conversion1(double &var);
-    QString str;
+    void constructor();
 
 private:
     QNetworkAccessManager *m_manager;
     QNetworkReply *loc;
+    QString conversion(double &var);
+    QString conversion1(double &var);
+    double latitude, longitude;
 
 public slots:
-    QString readready();
+    void readready();
+
+signals:
+    void send(QString tr);
 };
 
 #endif // DATABASE_H
