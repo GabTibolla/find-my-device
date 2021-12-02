@@ -22,6 +22,7 @@ private:
     QString conversionLatitude(double &var);
     QString conversionLongitude(double &var);
     double latitude, longitude;
+    void get();
 
 public slots:
     void readready();

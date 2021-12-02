@@ -10,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    database *url = new database(this);
-    db = url->constructor(); // erro
     connect(db, &database::sent, this, &MainWindow::setValue);
 }
 

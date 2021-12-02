@@ -8,14 +8,16 @@
 database::database(QObject *parent) : QObject(parent)
 {
     m_manager = new QNetworkAccessManager(this);
-
-    loc = m_manager->get(QNetworkRequest(QUrl("https://projeto-final-cdfea-default-rtdb.firebaseio.com/localizacao.json")));
-    connect(loc, &QNetworkReply::readyRead, this, &database::readready);
 }
 
 database::~database()
 {
     delete m_manager;
+}
+
+void database::get(){
+    loc = m_manager->get(QNetworkRequest(QUrl("https://projeto-final-cdfea-default-rtdb.firebaseio.com/localizacao.json")));
+    connect(loc, &QNetworkReply::readyRead, this, &database::readready);
 }
 
 void database::readready()
@@ -24,6 +26,8 @@ void database::readready()
     auto obj= json.object();
     latitude = obj["Latitude"].toDouble();
     longitude = obj["Longitude"].toDouble();
+    str = ("https://www.google.com/maps/place" + conversionLatitude(latitude) + conversionLongitude(longitude));
+    emit sent(str);
 }
 
 QString database::conversionLatitude(double &var)
@@ -89,12 +93,4 @@ QString database::conversionLongitude(double &var)
          w = "E";
      QString value = (QString::number(a) + "º" + QString::number(b) + "'" + QString::number(aux2) + "''" + w);
      return value;
-}
-
-
-QString database::constructor()
-{
-    str = ("https://www.google.com/maps/place" + conversionLatitude(latitude) + conversionLongitude(longitude));
-    emit sent(str);
-    return str;
 }
