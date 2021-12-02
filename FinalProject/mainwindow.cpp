@@ -9,17 +9,20 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    db = new database();
     connect(db, &database::sent, this, &MainWindow::setValue);
+    db->get();
+
 }
 
 MainWindow::~MainWindow()
 {
+    delete db;
     delete ui;
 }
 
-void MainWindow::setValue()
+void MainWindow::setValue(QString str)
 {
-    ui->webView->load(QUrl(db->str));
-    ui->lineEdit->setText(db->str);
+   ui->lineEdit->setText(str);
+   ui->webView->load(QUrl(str));
 }

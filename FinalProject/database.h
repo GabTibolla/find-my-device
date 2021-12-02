@@ -13,8 +13,8 @@ class database : public QObject
 public:
     explicit database(QObject *parent = nullptr);
     ~database();
-    QString constructor();
     QString str;
+    void get();
 
 private:
     QNetworkAccessManager *m_manager;
@@ -22,7 +22,6 @@ private:
     QString conversionLatitude(double &var);
     QString conversionLongitude(double &var);
     double latitude, longitude;
-    void get();
 
 public slots:
     void readready();

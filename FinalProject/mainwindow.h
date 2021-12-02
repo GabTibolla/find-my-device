@@ -23,6 +23,6 @@ private:
     Ui::MainWindow *ui;
 
 public slots:
-    void setValue();
+    void setValue(QString str);
 };
 #endif // MAINWINDOW_H

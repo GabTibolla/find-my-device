@@ -26,7 +26,8 @@ void database::readready()
     auto obj= json.object();
     latitude = obj["Latitude"].toDouble();
     longitude = obj["Longitude"].toDouble();
-    str = ("https://www.google.com/maps/place" + conversionLatitude(latitude) + conversionLongitude(longitude));
+    str = ("https://www.google.com/maps/place/" + conversionLatitude(latitude) + conversionLongitude(longitude));
+    qDebug() << str;
     emit sent(str);
 }
 
