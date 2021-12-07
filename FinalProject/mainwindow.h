@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include "database.h"
-
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +18,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     database *db;
+    QTimer *timer;
+
 
 private:
     Ui::MainWindow *ui;

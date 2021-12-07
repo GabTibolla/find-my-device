@@ -27,7 +27,6 @@ void database::readready()
     latitude = obj["Latitude"].toDouble();
     longitude = obj["Longitude"].toDouble();
     str = ("https://www.google.com/maps/place/" + conversionLatitude(latitude) + conversionLongitude(longitude));
-    qDebug() << str;
     emit sent(str);
 }
 
