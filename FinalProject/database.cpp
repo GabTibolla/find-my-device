@@ -15,23 +15,22 @@ database::~database()
     delete m_manager;
 }
 
-void database::get(){
+void database::get(){ // função para realizar a requisição no firebase, puxando os dados salvos
     loc = m_manager->get(QNetworkRequest(QUrl("https://projeto-final-cdfea-default-rtdb.firebaseio.com/localizacao.json")));
-    connect(loc, &QNetworkReply::readyRead, this, &database::readready);
+    connect(loc, &QNetworkReply::readyRead, this, &database::readready);  // Conectando os dados puxados para realizar a conversão
 }
 
 void database::readready()
 {
-    auto json = QJsonDocument::fromJson(loc->readAll());
-    auto obj= json.object();
-    latitude = obj["Latitude"].toDouble();
-    longitude = obj["Longitude"].toDouble();
-    str = ("https://www.google.com/maps/place/" + conversionLatitude(latitude) + conversionLongitude(longitude));
-    qDebug() << str;
-    emit sent(str);
+    auto json = QJsonDocument::fromJson(loc->readAll()); //Lendo todos os arquivos do firebase em formato .json
+    auto obj= json.object(); // Transformando os dados .json em object
+    latitude = obj["Latitude"].toDouble(); // Convertendo latitude para double
+    longitude = obj["Longitude"].toDouble(); // Convertendo Longitude para double
+    str = ("https://www.google.com/maps/place/" + conversionLatitude(latitude) + conversionLongitude(longitude)); // Criando a URL
+    emit sent(); // Emitindo sinal para conexão na mainWindow
 }
 
-QString database::conversionLatitude(double &var)
+QString database::conversionLatitude(double &var) // Convertendo latitude em ângulos para exibir no maps
 {
     int a = var;
     float aux = ((var - a) * 60);
@@ -64,7 +63,7 @@ QString database::conversionLatitude(double &var)
     return value;
 }
 
-QString database::conversionLongitude(double &var)
+QString database::conversionLongitude(double &var) // Convertendo Longitude em ângulos para exibir no maps
 {
     int a = var;
     float aux = ((var - a) * 60);

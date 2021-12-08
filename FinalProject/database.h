@@ -27,7 +27,7 @@ public slots:
     void readready();
 
 signals:
-    void sent(QString value);
+    void sent();
 };
 
 #endif // DATABASE_H

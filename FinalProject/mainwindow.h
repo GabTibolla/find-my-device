@@ -5,7 +5,6 @@
 #include <QString>
 #include "database.h"
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -18,11 +17,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     database *db;
+    QTimer *timer;
 
 private:
     Ui::MainWindow *ui;
 
 public slots:
-    void setValue(QString str);
+    void setValue();
+    void aux();
+
 };
 #endif // MAINWINDOW_H
