@@ -10,27 +10,34 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    db = new database();
-    timer = new QTimer(this);
-    database *aux = new database(this);
 
+    // Conectando a classe database à MainWindow, passando os dados
+    db = new database();
     connect(db, &database::sent, this, &MainWindow::setValue);
-    connect(timer, &QTimer::timeout, aux, &database::call);
-    timer->start(10000);
     db->get();
 
+    // Temporizador, atualizando de 10 em 10 segundos
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::aux);
+    timer->start(10000);
 }
 
 MainWindow::~MainWindow()
 {
+    delete timer;
     delete db;
     delete ui;
-    delete timer;
 }
 
-void MainWindow::setValue(QString str)
+void MainWindow::setValue()
 {
-    qDebug() << "+10 segundos";
-    ui->lineEdit->setText(str);
-    ui->webView->load(QUrl(str));
+    // Exibindo dados no webview e no line edit
+    ui->lineEdit->setText(db->str);
+    ui->webView->load(QUrl(db->str));
+}
+
+
+void MainWindow::aux() // Slot auxiliar, para conectar o timer e a exibição atualizada
+{
+    db->get();
 }

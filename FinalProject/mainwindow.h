@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QString>
 #include "database.h"
-#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,11 +19,12 @@ public:
     database *db;
     QTimer *timer;
 
-
 private:
     Ui::MainWindow *ui;
 
 public slots:
-    void setValue(QString str);
+    void setValue();
+    void aux();
+
 };
 #endif // MAINWINDOW_H
