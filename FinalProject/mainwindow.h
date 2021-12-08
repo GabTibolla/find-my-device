@@ -21,6 +21,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QString verify;
+
+private slots:
+    void writeWindow();
+    void readWindow();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void setValue();
